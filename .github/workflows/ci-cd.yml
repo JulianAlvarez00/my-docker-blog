@@ -1,0 +1,50 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install Dependencies
+      working-directory: ./backend
+      run: npm install
+
+    - name: Run Linting
+      working-directory: ./backend
+      run: |
+        echo "No linting configured yet"
+        
+    - name: Run Tests
+      working-directory: ./backend
+      run: |
+        echo "No tests configured yet"
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build Docker images
+      run: docker-compose build
+
+    - name: Test Docker Compose
+      run: |
+        docker-compose up -d
+        sleep 10
+        curl http://localhost:3000 || exit 1
+        docker-compose down
