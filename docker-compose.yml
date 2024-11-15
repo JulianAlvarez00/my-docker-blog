@@ -5,6 +5,7 @@ services:
     build: 
       context: ./backend
       dockerfile: Dockerfile
+    image: ${DOCKER_HUB_USERNAME}/blog-backend:latest
     ports:
       - "3000:3000"
     environment:
@@ -20,13 +21,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: ${DOCKER_HUB_USERNAME}/blog-frontend:latest
     ports:
-      - "3001:3000"  # Cambiado: puerto externo 3001
+      - "3001:3000"
     volumes:
       - ./frontend:/usr/src/app
       - /usr/src/app/node_modules
     environment:
-      - REACT_APP_API_URL=http://localhost:3000  # URL del backend
+      - REACT_APP_API_URL=http://localhost:3000
     depends_on:
       - backend
 
