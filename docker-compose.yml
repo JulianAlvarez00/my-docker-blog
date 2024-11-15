@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
   backend:
     build: 
       context: ./backend
       dockerfile: Dockerfile
-    image: ${DOCKER_HUB_USERNAME}/blog-backend:latest
+    image: julianalvarez00/blog-backend:latest
     ports:
       - "3000:3000"
     environment:
@@ -21,7 +19,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    image: ${DOCKER_HUB_USERNAME}/blog-frontend:latest
+    image: julianalvarez00/blog-frontend:latest
     ports:
       - "3001:3000"
     volumes:
